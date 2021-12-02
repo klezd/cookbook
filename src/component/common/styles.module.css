@@ -1,0 +1,81 @@
+.logo {
+	width: 80px;
+}
+
+/** Product Item */
+.item {
+	position: relative;
+	padding: 8px;
+	display: grid;
+	grid-template-rows: auto 1fr;
+	height: 100%;
+	width: 100%;
+	cursor: pointer;
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 3px;
+	transition: all linear 0.25s;
+	box-shadow: rgba(0, 0, 0, 0) 1.95px 1.95px 2.6px;
+}
+
+.item:hover {
+	border-color: rgba(0, 0, 0, 0.25);
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.item > div {
+	justify-self: center;
+}
+.item > .image {
+	width: 150px;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.image > img {
+	padding: 5px;
+	object-fit: cover;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.titleHolder {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.titleHolder .price {
+	font-weight: 800;
+}
+
+.hover {
+	position: absolute;
+	top: 30%;
+	right: 0px;
+	left: 0px;
+	bottom: 0px;
+	background-color: rgba(0, 0, 0, 0.15);
+	align-items: center;
+	justify-content: center;
+	display: none;
+	flex-direction: column;
+	padding: 12px;
+}
+
+.hover > button {
+	margin: 3px;
+}
+
+.item:hover > .hover {
+	display: flex;
+}
+
+.dialogForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

@@ -1,0 +1,21 @@
+.formRoot,
+.form,
+.userContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 12px;
+}
+.form button,
+.root button {
+	margin-top: 12px;
+}
+
+.errorText {
+	color: red;
+	font-style: italic;
+}
+
+.userContainer > div {
+	width: 100%;
+}

@@ -1,0 +1,38 @@
+.appbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.appBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.appBtn > div {
+	margin-left: 12px;
+	cursor: pointer;
+}
+
+.authBoxRoot {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-width: 70vw;
+}
+
+.headerMenu > div:first-child {
+	display: flex;
+	align-items: center;
+	margin-right: 8px;
+}
+
+.logo {
+	width: 80px;
+}
+
+.headerMenu .logo {
+	width: 60px;
+}

@@ -1,0 +1,15 @@
+.root {
+	min-height: calc(100vh - 80px);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.root > img {
+	object-fit: cover;
+	object-position: center;
+	width: 100%;
+	max-width: 800px;
+	max-height: calc(100vh - 80px);
+}

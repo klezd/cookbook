@@ -4,14 +4,22 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-import { fab, faGoogle, faFacebookF } from '@fortawesome/free-brands-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
+import {
+	fab,
+	faGoogle,
+	faFacebookF,
+	faYoutube
+} from '@fortawesome/free-brands-svg-icons';
+import {
+	far,
+	faHeart as farHeart,
+	faCircle
+} from '@fortawesome/free-regular-svg-icons';
 import {
 	fas,
-	faGem,
-	faFemale,
-	faMale,
-	faBolt
+	faMapMarkerAlt,
+	faHeart as fasHeart,
+	faLink
 } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from './page/Layout';
@@ -33,10 +41,12 @@ library.add(
 	far,
 	faGoogle,
 	faFacebookF,
-	faGem,
-	faFemale,
-	faMale,
-	faBolt
+	faYoutube,
+	faMapMarkerAlt,
+	farHeart,
+	fasHeart,
+	faCircle,
+	faLink
 );
 
 function App() {

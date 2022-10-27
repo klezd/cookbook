@@ -121,6 +121,7 @@ export const loginWithExternalService = (type, platform) => {
 		};
 	}
 
+	console.log(provider);
 	const auth = getAuth();
 	return async (dispatch) => {
 		dispatch({

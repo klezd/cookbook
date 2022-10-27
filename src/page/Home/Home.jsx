@@ -7,7 +7,8 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
-import { getAllCategories } from '../../store/action/dataAction';
+import MealCard from '../../component/MealCard/MealCard';
+import { getRandomList } from '../../store/action/dataAction';
 
 import styles from './styles.module.css';
 
@@ -16,20 +17,38 @@ function Home(/* props */) {
 	const dispatch = useDispatch();
 
 	const loading = useSelector((s) => s.data.dataLoading);
+	const mealReducer = useSelector((s) => s.data.meals);
+	const mealsList = mealReducer['random'] ? mealReducer['random'] : [];
+
+	console.log(mealsList);
 
 	useEffect(() => {
-		dispatch(getAllCategories());
+		dispatch(getRandomList());
 	}, []);
 
 	useEffect(() => {}, []);
 
 	return (
 		<Container className={styles.root}>
-			{!loading ? (
-				<Paper sx={{ boxShadow: 0 }}></Paper>
-			) : (
-				<Paper>Loading</Paper>
-			)}
+			<Paper sx={{ boxShadow: 0 }}>
+				<Box className={styles.search}></Box>
+				<Box className={styles.meals}>
+					<Typography variant="h5">
+						Don&apos;t know what to eat? Try these!
+					</Typography>
+					{!loading ? (
+						<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>
+							{mealsList.length !== 0 &&
+								mealsList.map((m, i) => {
+									console.log(m);
+									return <MealCard key={`random_${i}`} item={m} />;
+								})}
+						</Box>
+					) : (
+						<Box>Loading</Box>
+					)}
+				</Box>
+			</Paper>
 		</Container>
 	);
 }

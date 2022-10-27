@@ -3,6 +3,7 @@ import {
 	GET_A_RANDOM_MEAL,
 	GET_CATEGORIES,
 	GET_MEALS_BY_CATEGORY,
+	GET_MEALS_BY_AREA,
 	GET_MEAL_BY_ID,
 	GET_RANDOM_LIST,
 	SEARCH_MEAL_BY_INGRDIENT,
@@ -22,6 +23,7 @@ export const callAPI =
 				console.log(response.data);
 				if (response.status === 200) {
 					const json = response.data;
+					console.log(json);
 					return dispatch({
 						type: `${type}_SUCCESS`,
 						payload: {
@@ -59,6 +61,16 @@ export const getMealsByCategory = (category) => async (dispatch) => {
 		headers: reqHeader
 	};
 	dispatch(callAPI(options, GET_MEALS_BY_CATEGORY, { category }));
+};
+
+export const getMealsByArea = (area) => async (dispatch) => {
+	const options = {
+		method: 'GET',
+		url: 'https://themealdb.p.rapidapi.com/filter.php',
+		params: { a: area },
+		headers: reqHeader
+	};
+	dispatch(callAPI(options, GET_MEALS_BY_AREA, { query: area }));
 };
 
 export const getMealById = (id) => (dispatch) => {
@@ -117,4 +129,20 @@ export const getARandomMeal = () => (dispatch) => {
 		headers: reqHeader
 	};
 	dispatch(callAPI(options, GET_A_RANDOM_MEAL));
+};
+
+// Save to user db
+export const addHistoryToLS = (search) => {
+	const searchTermLS = localStorage.getItem('searchQ');
+	if (!searchTermLS || (searchTermLS && searchTermLS.length === 0)) {
+		let array = [search];
+		localStorage.setItem('searchQ', array);
+	} else if (
+		searchTermLS &&
+		typeof searchTermLS === 'object' &&
+		searchTermLS.length !== 0
+	) {
+		let array = [search].concat(searchTermLS);
+		localStorage.setItem('searchQ', array);
+	}
 };

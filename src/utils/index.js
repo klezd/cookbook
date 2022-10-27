@@ -39,3 +39,38 @@ export const prepareUserObjToUploadFirebase = (object) => {
 
 	return newObj;
 };
+
+export const getIngredientLists = (mealItem) => {
+	let keyNameList = Object.keys(mealItem).filter(
+		(key) =>
+			key.includes('strIngredient') &&
+			mealItem[key] &&
+			mealItem[key].length !== 0
+	);
+	let res = keyNameList.map((key) => {
+		let order = key.split('strIngredient')[1];
+		return { [order]: { [mealItem[key]]: mealItem[`strMeasure${order}`] } };
+	});
+	return res;
+};
+
+export const modifiedmealObj = (mealItem) => {
+	const ingredients = getIngredientLists(mealItem);
+	let res = {
+		id: mealItem['idMeal'],
+		title: mealItem['strMeal'],
+		tags: mealItem['strTags'].split(','),
+		thumbnail: mealItem['strMealThumb'] ? mealItem['strMealThumb'] : null,
+		category: mealItem['strCategory'],
+		area: mealItem['strArea'],
+		modified: mealItem['strModified'] ? mealItem['strModified'] : null,
+		source: mealItem['strSource'],
+		ingredients,
+		instructions: mealItem['strInstructions'],
+		youtubeLink: mealItem['strYoutube'],
+		drinkAlternate: mealItem['strDrinkAlternate']
+			? mealItem['strDrinkAlternate']
+			: null
+	};
+	return res;
+};

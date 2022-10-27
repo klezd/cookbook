@@ -55,7 +55,7 @@ function MealCard(props) {
 				image={strMealThumb}
 				alt={strMeal}
 				onClick={openMealDescription}
-			></CardMedia>
+			/>
 			<CardContent className={styles.description} onClick={openMealDescription}>
 				<Typography variant="h6" className={styles.title}>
 					{strMeal}

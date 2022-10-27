@@ -86,7 +86,7 @@ export const getMealById = (id) => (dispatch) => {
 export const getAllCategories = () => (dispatch) => {
 	const options = {
 		method: 'GET',
-		url: 'https://themealdb.p.rapidapi.com/list.php',
+		url: 'https://themealdb.p.rapidapi.com/categories.php',
 		params: { c: 'list' },
 		headers: reqHeader
 	};

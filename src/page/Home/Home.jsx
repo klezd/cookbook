@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/system/Box';
@@ -13,14 +13,12 @@ import { getRandomList } from '../../store/action/dataAction';
 import styles from './styles.module.css';
 
 function Home(/* props */) {
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const loading = useSelector((s) => s.data.dataLoading);
 	const mealReducer = useSelector((s) => s.data.meals);
 	const mealsList = mealReducer['random'] ? mealReducer['random'] : [];
-
-	console.log(mealsList);
 
 	useEffect(() => {
 		dispatch(getRandomList());
@@ -40,7 +38,6 @@ function Home(/* props */) {
 						<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>
 							{mealsList.length !== 0 &&
 								mealsList.map((m, i) => {
-									console.log(m);
 									return <MealCard key={`random_${i}`} item={m} />;
 								})}
 						</Box>

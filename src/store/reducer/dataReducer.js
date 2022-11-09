@@ -42,7 +42,7 @@ function userReducer(state = initialState, action) {
 			return {
 				...state,
 				dataLoading: false,
-				singleMeal: payload.data,
+				singleMeal: payload.data.meals[0],
 				errorCode: null,
 				errorMsg: null
 			};

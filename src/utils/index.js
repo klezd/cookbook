@@ -59,15 +59,15 @@ export const modifiedmealObj = (mealItem) => {
 	let res = {
 		id: mealItem['idMeal'],
 		title: mealItem['strMeal'],
-		tags: mealItem['strTags'].split(','),
+		tags: mealItem['strTags'] ? mealItem['strTags'].split(',') : [],
 		thumbnail: mealItem['strMealThumb'] ? mealItem['strMealThumb'] : null,
 		category: mealItem['strCategory'],
-		area: mealItem['strArea'],
+		area: mealItem['strArea'] ? mealItem['strArea'] : 'Unknown',
 		modified: mealItem['strModified'] ? mealItem['strModified'] : null,
-		source: mealItem['strSource'],
+		source: mealItem['strSource'] ? mealItem['strSource'] : null,
 		ingredients,
 		instructions: mealItem['strInstructions'],
-		youtubeLink: mealItem['strYoutube'],
+		youtubeLink: mealItem['strYoutube'] ? mealItem['strYoutube'] : null,
 		drinkAlternate: mealItem['strDrinkAlternate']
 			? mealItem['strDrinkAlternate']
 			: null

@@ -23,6 +23,10 @@
 	min-width: 70vw;
 }
 
+.headerMenu {
+	cursor: pointer;
+}
+
 .headerMenu > div:first-child {
 	display: flex;
 	align-items: center;

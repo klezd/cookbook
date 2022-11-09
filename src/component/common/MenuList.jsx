@@ -24,7 +24,12 @@ export default function MenuList(props) {
 	};
 
 	return (
-		<List component={Stack} direction={{ xs: 'column', md: 'row' }} spacing={2}>
+		<List
+			className={styles.menu}
+			component={Stack}
+			direction={{ xs: 'column', md: 'row' }}
+			spacing={2}
+		>
 			{props.showPageTitle && (
 				<>
 					<ListItem disablePadding>

@@ -6,12 +6,17 @@ import {
 	GET_MEAL_BY_ID,
 	GET_RANDOM_LIST,
 	SEARCH_MEAL_BY_INGRDIENT,
-	SEARCH_MEAL_BY_NAME
+	SEARCH_MEAL_BY_NAME,
+	GET_LATEST_LIST,
+	GET_AREAS,
+	GET_INGREDIENTS
 } from '../types';
 
 const initialState = {
 	dataLoading: false,
 	categories: [],
+	areas: [],
+	ingredients: [],
 	singleMeal: null,
 	meals: {},
 	mealsByQuery: {}
@@ -22,9 +27,12 @@ function userReducer(state = initialState, action) {
 
 	switch (type) {
 		case `${GET_RANDOM_LIST}_PENDING`:
+		case `${GET_LATEST_LIST}_PENDING`:
 		case `${SEARCH_MEAL_BY_NAME}_PENDING`:
 		case `${SEARCH_MEAL_BY_INGRDIENT}_PENDING`:
 		case `${GET_CATEGORIES}_PENDING`:
+		case `${GET_AREAS}_PENDING`:
+		case `${GET_INGREDIENTS}_PENDING`:
 		case `${GET_MEALS_BY_CATEGORY}_PENDING`:
 		case `${GET_MEALS_BY_AREA}_PENDING`:
 		case `${GET_MEAL_BY_ID}_PENDING`:
@@ -54,13 +62,31 @@ function userReducer(state = initialState, action) {
 				errorCode: null,
 				errorMsg: null
 			};
+		case `${GET_AREAS}_SUCCESS`:
+			return {
+				...state,
+				dataLoading: false,
+				areas: payload.data,
+				errorCode: null,
+				errorMsg: null
+			};
+		case `${GET_INGREDIENTS}_SUCCESS`:
+			return {
+				...state,
+				dataLoading: false,
+				ingredients: payload.data,
+				errorCode: null,
+				errorMsg: null
+			};
 		case `${GET_MEALS_BY_CATEGORY}_SUCCESS`:
+		case `${GET_MEALS_BY_AREA}_SUCCESS`:
+		case `${GET_LATEST_LIST}_SUCCESS`:
 			return {
 				...state,
 				dataLoading: false,
 				meals: {
-					...state.products,
-					[payload.category]: payload.data
+					...state.meals,
+					[payload.query.toUpperCase()]: payload.data
 				},
 				errorCode: null,
 				errorMsg: null
@@ -70,7 +96,7 @@ function userReducer(state = initialState, action) {
 				...state,
 				dataLoading: false,
 				meals: {
-					...state.products,
+					...state.meals,
 					['random']: payload.data.meals
 				},
 				errorCode: null,
@@ -78,22 +104,24 @@ function userReducer(state = initialState, action) {
 			};
 		case `${SEARCH_MEAL_BY_NAME}_SUCCESS`:
 		case `${SEARCH_MEAL_BY_INGRDIENT}_SUCCESS`:
-		case `${GET_MEALS_BY_AREA}_SUCCESS`:
 			return {
 				...state,
 				dataLoading: false,
 				mealsByQuery: {
-					...state.products,
-					[payload.query]: payload.data
+					...state.meals,
+					[payload.query.toUpperCase()]: payload.data
 				},
 				errorCode: null,
 				errorMsg: null
 			};
 
 		case `${GET_RANDOM_LIST}_ERROR`:
+		case `${GET_LATEST_LIST}_ERROR`:
 		case `${SEARCH_MEAL_BY_NAME}_ERROR`:
 		case `${SEARCH_MEAL_BY_INGRDIENT}_ERROR`:
 		case `${GET_CATEGORIES}_ERROR`:
+		case `${GET_AREAS}_ERROR`:
+		case `${GET_INGREDIENTS}_ERROR`:
 		case `${GET_MEALS_BY_CATEGORY}_ERROR`:
 		case `${GET_MEALS_BY_AREA}_ERROR`:
 		case `${GET_MEAL_BY_ID}_ERROR`:

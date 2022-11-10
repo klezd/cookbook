@@ -18,7 +18,6 @@ export default function MenuList(props) {
 	const navigate = useNavigate();
 
 	const openLink = (link) => {
-		console.log(link);
 		navigate(link);
 		if (props.direction !== 'row') props.toggleDrawer(false);
 	};
@@ -56,13 +55,35 @@ export default function MenuList(props) {
 			</ListItem>
 
 			<ListItem disablePadding>
-				<ListItemButton onClick={() => openLink('/my-page')}>
+				<ListItemButton onClick={() => openLink('/area')}>
 					{props.showIcon && (
 						<ListItemIcon>
-							<FontAwesomeIcon icon="user" />
+							<FontAwesomeIcon icon="utensils" />
 						</ListItemIcon>
 					)}
-					<ListItemText primary="My Page" />
+					<ListItemText primary="Cuisine" />
+				</ListItemButton>
+			</ListItem>
+
+			<ListItem disablePadding>
+				<ListItemButton onClick={() => openLink('/meals')}>
+					{props.showIcon && (
+						<ListItemIcon>
+							<FontAwesomeIcon icon="seedling" />
+						</ListItemIcon>
+					)}
+					<ListItemText primary="Ingredients" />
+				</ListItemButton>
+			</ListItem>
+
+			<ListItem disablePadding>
+				<ListItemButton onClick={() => openLink('/search')}>
+					{props.showIcon && (
+						<ListItemIcon>
+							<FontAwesomeIcon icon="search" />
+						</ListItemIcon>
+					)}
+					<ListItemText primary="Search" />
 				</ListItemButton>
 			</ListItem>
 		</List>

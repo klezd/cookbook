@@ -1,50 +1,50 @@
 import React, { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/system/Box';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
-import MealCard from '../../component/MealCard/MealCard';
-import { getRandomList } from '../../store/action/dataAction';
+import MealListComp from '../../component/MealListComp/MealListComp';
+
+import { initLoadHomepage } from '../../store/action/dataAction';
 
 import styles from './styles.module.css';
 
 function Home(/* props */) {
-	// const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const loading = useSelector((s) => s.data.dataLoading);
 	const mealReducer = useSelector((s) => s.data.meals);
-	const mealsList = mealReducer['random'] ? mealReducer['random'] : [];
+	console.log('mealReducer ', mealReducer);
+	console.log(
+		'data ',
+		useSelector((s) => s.data)
+	);
+	const mealsRandomList = mealReducer['random'] ? mealReducer['random'] : [];
+	const mealsLatestList = mealReducer['LATEST']
+		? mealReducer['LATEST'].meals
+		: [];
+
+	console.log('random ', mealsRandomList);
+	console.log('latest ', mealsLatestList);
 
 	useEffect(() => {
-		dispatch(getRandomList());
+		dispatch(initLoadHomepage());
 	}, []);
-
-	useEffect(() => {}, []);
 
 	return (
 		<Container className={styles.root}>
 			<Paper sx={{ boxShadow: 0 }}>
 				<Box className={styles.search}></Box>
-				<Box className={styles.meals}>
-					<Typography variant="h5">
-						Don&apos;t know what to eat? Try these!
-					</Typography>
-					{!loading ? (
-						<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>
-							{mealsList.length !== 0 &&
-								mealsList.map((m, i) => {
-									return <MealCard key={`random_${i}`} item={m} />;
-								})}
-						</Box>
-					) : (
-						<Box>Loading</Box>
-					)}
-				</Box>
+				<MealListComp
+					loading={mealsRandomList.length == 0}
+					mealList={mealsRandomList}
+				/>
+				<MealListComp
+					title={<>Or try with these latest update</>}
+					loading={mealsLatestList.length == 0}
+					mealList={mealsLatestList}
+				/>
 			</Paper>
 		</Container>
 	);

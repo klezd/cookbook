@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 import Box from '@mui/system/Box';
 import Typography from '@mui/material/Typography';
@@ -13,6 +14,7 @@ import { getAllCategories } from '../../store/action/dataAction';
 
 function Category() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const loading = useSelector((s) => s.data.dataLoading);
 	const categoriesReducer = useSelector((s) => s.data.categories);
@@ -22,9 +24,13 @@ function Category() {
 		dispatch(getAllCategories());
 	}, []);
 
+	const openLink = (link) => {
+		navigate(link);
+	};
+
 	return (
-		<Paper className={styles.root}>
-			<Typography variant="h3">Food Categories</Typography>
+		<Paper sx={{ boxShadow: 0 }}>
+			<Typography variant="h5">Food Categories</Typography>
 			{!loading && categoriesList ? (
 				<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>
 					{categoriesList.length !== 0 &&
@@ -39,6 +45,7 @@ function Category() {
 								<Card
 									key={`category_${i}_${idCategory}`}
 									className={styles.card}
+									onClick={() => openLink(strCategory)}
 								>
 									<CardContent className={styles}>
 										<Typography variant="h5" className={styles.title}>

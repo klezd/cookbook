@@ -20,13 +20,9 @@
   object-fit: cover !important;
 }
 
-.description {
-  padding: 16px 0  0 !important;
-}
-
 .shortDescription {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 1vh;
   flex-wrap: wrap;
 }

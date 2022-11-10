@@ -1,0 +1,10 @@
+.root {
+	padding: 24px;
+	margin: 24px;
+}
+
+@media screen and (max-width: 460px) {
+	.productsHolder {
+		display: block;
+	}
+}

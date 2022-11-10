@@ -16,7 +16,6 @@ function MealCard(props) {
 	const navigate = useNavigate();
 	const [fav, setFav] = useState(false);
 
-	console.log(item);
 	if (!item) return <></>;
 
 	const {
@@ -43,7 +42,7 @@ function MealCard(props) {
 	};
 
 	const openMealDescription = () => {
-		navigate(`/meal/${idMeal}/${strMeal}`);
+		navigate(`/meals/${idMeal}/${strMeal}`);
 	};
 
 	return (
@@ -57,16 +56,18 @@ function MealCard(props) {
 				alt={strMeal}
 				onClick={openMealDescription}
 			/>
-			<CardContent className={styles.description} onClick={openMealDescription}>
+			<CardContent sx={{ padding: '16px 0  0' }} onClick={openMealDescription}>
 				<Typography variant="h6" className={styles.title}>
 					{strMeal}
 				</Typography>
 				<div className={styles.shortDescription}>
-					<div>{strCategory}</div>
-					<div>
-						<FontAwesomeIcon icon="map-marker-alt" size="lg" color="orange" />
-						<span style={{ marginLeft: 6 }}>{strArea}</span>
-					</div>
+					{strCategory && <div>{strCategory}</div>}{' '}
+					{strArea && (
+						<div>
+							<FontAwesomeIcon icon="map-marker-alt" size="lg" color="orange" />
+							<span style={{ marginLeft: 6 }}>{strArea}</span>
+						</div>
+					)}
 				</div>
 			</CardContent>
 			<CardActions className={styles.shortDescription}>

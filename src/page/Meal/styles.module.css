@@ -40,6 +40,7 @@
 
 .content {
 	display: flex;
+	flex-direction: column;
 	width: 100%;
 	padding: 16px;
 }
@@ -64,9 +65,10 @@
 
 .ingredient {
 	max-width: 320px;
+	min-width: 25vw;
+	width: max-content;
 	display: flex;
 	justify-self: center;
-	align-self: center;
 	padding: 4px;
 }
 
@@ -99,7 +101,10 @@
 	}
 }
 
-@media screen and (min-width: 1016px) {
+@media screen and (max-width: 1240px) and (min-width: 1016px) {
+	.content {
+		flex-direction: row;
+	}
 	.ingredient {
 		border-right: solid 1px rgb( 0 0 0 / 50%);
 	}
@@ -112,7 +117,11 @@
 	.video {
 		grid-row: 2
 	}
-	.content {
-		flex-direction: column;
+}
+
+@media screen and (max-width: 508px) {
+	.outsource {
+		margin: auto;
+		width: max-content;
 	}
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/system/Box';
 import Paper from '@mui/material/Paper';
@@ -12,6 +13,7 @@ import { signout } from '../../store/action/userAction';
 function Auth() {
 	const isLogged = useSelector((s) => s.user.isLogged);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const user = useSelector((s) => s.user.user);
 	const uid = isLogged ? user.uid : null;
@@ -44,10 +46,22 @@ function Auth() {
 								variant="contained"
 								onClick={() => {
 									console.log('todo');
+									navigate('/my-personal-info');
 								}}
 							>
 								Edit Your Information
 							</Button>
+							<Button
+								fullWidth
+								variant="contained"
+								onClick={() => {
+									navigate('/my-page');
+									console.log('todo my-page');
+								}}
+							>
+								My Page
+							</Button>
+
 							<Button fullWidth variant="contained" onClick={() => logout()}>
 								Log out
 							</Button>

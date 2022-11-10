@@ -9,16 +9,14 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Header from '../../component/Header/Header';
 import ScrollTo from '../../component/Header/ScrollTo';
 
-import styles from './styles.module.css';
-
 function Main(props) {
 	return (
-		<div className={styles.root}>
+		<div>
 			<Header />
 
 			<Toolbar id="back-to-top" />
 
-			<Paper sx={{ boxShadow: 0, padding: 2 }}>
+			<Paper sx={{ boxShadow: 0, padding: 6 }}>
 				<Outlet />
 			</Paper>
 

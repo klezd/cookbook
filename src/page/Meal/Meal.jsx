@@ -1,5 +1,6 @@
+// /meal/:id/:name
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,7 +31,6 @@ function Meal() {
 	let modifiedMeal = null;
 
 	React.useEffect(() => {
-		console.log('get meal');
 		dispatch(getMealById(id));
 	}, [id]);
 
@@ -69,12 +69,11 @@ function Meal() {
 		const url = new URL(source);
 		hostname = url.hostname;
 	}
-	console.log(category);
 
 	return (
 		<Paper className={styles.root}>
 			<Box className={styles.title}>
-				<Typography variant="h3">{title}</Typography>
+				<Typography variant="h4">{title}</Typography>
 			</Box>
 			<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>
 				<Box className={styles.mediaHolder}>
@@ -96,43 +95,49 @@ function Meal() {
 						/>
 					</Card>
 				</Box>
-			</Box>
-			<Box className={styles.content}>
-				<Box className={styles.ingredient}>
-					<List>
+				<Box className={styles.content}>
+					<Box className={styles.ingredient}>
+						<List>
+							<Typography className={styles.instructionstitle} variant="button">
+								Ingredients
+							</Typography>
+							{ingredients.map((ing, idx) => {
+								const ingredientName = Object.keys(Object.values(ing)[0])[0];
+								const ingredientAmount = Object.values(
+									Object.values(ing)[0]
+								)[0];
+								return (
+									<ListItem sx={{ padding: '4px' }} key={`ingredients_${idx}`}>
+										<ListItemText
+											primary={`${ingredientName}: ${ingredientAmount}`}
+										/>
+									</ListItem>
+								);
+							})}
+						</List>
+					</Box>
+					<Box className={styles.instructions}>
 						<Typography className={styles.instructionstitle} variant="button">
-							Ingredients
+							Instructions
 						</Typography>
-						{ingredients.map((ing, idx) => {
-							const ingredientName = Object.keys(Object.values(ing)[0])[0];
-							const ingredientAmount = Object.values(Object.values(ing)[0])[0];
-							return (
-								<ListItem sx={{ padding: '4px' }} key={`ingredients_${idx}`}>
-									<ListItemText
-										primary={`${ingredientName}: ${ingredientAmount}`}
-									/>
-								</ListItem>
-							);
-						})}
-					</List>
-				</Box>
-				<Box className={styles.instructions}>
-					<Typography className={styles.instructionstitle} variant="button">
-						Instructions
-					</Typography>
-					<br />
-					<ol>
-						{instructions
-							.split('.')
-							.slice(0, -1)
-							.map((ins, idx) => (
-								<li key={`step_${idx + 1}`} className={styles.instructionsItem}>
-									{ins} <br />
-								</li>
-							))}
-					</ol>
+						<br />
+						<ol>
+							{instructions
+								.split('.')
+								.slice(0, -1)
+								.map((ins, idx) => (
+									<li
+										key={`step_${idx + 1}`}
+										className={styles.instructionsItem}
+									>
+										{ins} <br />
+									</li>
+								))}
+						</ol>
+					</Box>
 				</Box>
 			</Box>
+
 			<Card className={styles.outsource}>
 				<List>
 					<ListSubheader>Other information</ListSubheader>
@@ -159,7 +164,7 @@ function Meal() {
 						<ListItemIcon>
 							<FontAwesomeIcon icon="map-marker-alt" size="lg" color="orange" />
 						</ListItemIcon>
-						<ListItemText primary={<a href="#">{area}</a>} />
+						<ListItemText primary={<Link to={`/area/${area}`}>{area}</Link>} />
 					</ListItem>
 
 					{category && category.length !== 0 && (
@@ -167,7 +172,9 @@ function Meal() {
 							<ListItemIcon>
 								<FontAwesomeIcon icon="utensils" size="lg" color="red" />
 							</ListItemIcon>
-							<ListItemText primary={<a href="#">{category}</a>} />
+							<ListItemText
+								primary={<Link to={`/category/${category}`}>{category}</Link>}
+							/>
 						</ListItem>
 					)}
 

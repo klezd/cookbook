@@ -7,7 +7,10 @@ import {
 	GET_MEAL_BY_ID,
 	GET_RANDOM_LIST,
 	SEARCH_MEAL_BY_INGRDIENT,
-	SEARCH_MEAL_BY_NAME
+	SEARCH_MEAL_BY_NAME,
+	GET_LATEST_LIST,
+	GET_AREAS,
+	GET_INGREDIENTS
 } from '../types';
 import { reqHeader } from '../../utils/rapidAPI';
 
@@ -20,10 +23,8 @@ export const callAPI =
 		axios
 			.request(opt)
 			.then((response) => {
-				console.log(response.data);
 				if (response.status === 200) {
 					const json = response.data;
-					console.log(json);
 					return dispatch({
 						type: `${type}_SUCCESS`,
 						payload: {
@@ -60,7 +61,7 @@ export const getMealsByCategory = (category) => async (dispatch) => {
 		params: { c: category },
 		headers: reqHeader
 	};
-	dispatch(callAPI(options, GET_MEALS_BY_CATEGORY, { category }));
+	dispatch(callAPI(options, GET_MEALS_BY_CATEGORY, { query: category }));
 };
 
 export const getMealsByArea = (area) => async (dispatch) => {
@@ -93,6 +94,26 @@ export const getAllCategories = () => (dispatch) => {
 	dispatch(callAPI(options, GET_CATEGORIES));
 };
 
+export const getAllAreas = () => (dispatch) => {
+	const options = {
+		method: 'GET',
+		url: 'https://themealdb.p.rapidapi.com/list.php',
+		params: { a: 'list' },
+		headers: reqHeader
+	};
+	dispatch(callAPI(options, GET_AREAS));
+};
+
+export const getAllIngredients = () => (dispatch) => {
+	const options = {
+		method: 'GET',
+		url: 'https://themealdb.p.rapidapi.com/list.php',
+		params: { i: 'list' },
+		headers: reqHeader
+	};
+	dispatch(callAPI(options, GET_INGREDIENTS));
+};
+
 export const searchMealByIngredient = (ingredient) => (dispatch) => {
 	const options = {
 		method: 'GET',
@@ -122,6 +143,15 @@ export const getRandomList = () => (dispatch) => {
 	dispatch(callAPI(options, GET_RANDOM_LIST));
 };
 
+export const getLatestList = () => (dispatch) => {
+	const options = {
+		method: 'GET',
+		url: 'https://themealdb.p.rapidapi.com/latest.php',
+		headers: reqHeader
+	};
+	dispatch(callAPI(options, GET_LATEST_LIST, { query: 'LATEST' }));
+};
+
 export const getARandomMeal = () => (dispatch) => {
 	const options = {
 		method: 'GET',
@@ -129,6 +159,11 @@ export const getARandomMeal = () => (dispatch) => {
 		headers: reqHeader
 	};
 	dispatch(callAPI(options, GET_A_RANDOM_MEAL));
+};
+
+export const initLoadHomepage = () => async (dispatch) => {
+	await dispatch(getRandomList());
+	await dispatch(getLatestList());
 };
 
 // Save to user db

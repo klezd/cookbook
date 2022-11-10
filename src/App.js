@@ -26,9 +26,13 @@ import Layout from './page/Layout';
 import Home from './page/Home';
 import NotFound from './page/NotFound';
 import Search from './page/Search';
-import MealsList from './page/MealsByCategory';
+import MealsByCategory from './page/MealsByCategory';
+import MealsByArea from './page/MealsByArea';
+import MealsByIngs from './page/MealsByIngs/MealsByIngs';
 import Meal from './page/Meal';
 import Category from './page/Category';
+import Area from './page/Area';
+import Ingredients from './page/Ingredients';
 import MyPage from './page/User';
 
 import theme from './utils/theme';
@@ -60,7 +64,13 @@ function App() {
 							<Route path="/category">
 								<Route index element={<Category></Category>} />
 								<Route path="/category/:category">
-									<Route index element={<MealsList></MealsList>} />
+									<Route index element={<MealsByCategory></MealsByCategory>} />
+								</Route>
+							</Route>
+							<Route path="/area">
+								<Route index element={<Area></Area>} />
+								<Route path="/area/:area">
+									<Route index element={<MealsByArea></MealsByArea>} />
 								</Route>
 							</Route>
 							<Route path="/search">
@@ -69,12 +79,19 @@ function App() {
 									<Route index element={<Search></Search>} />
 								</Route>
 							</Route>
-							<Route path="/meal">
-								<Route path="/meal/:id/:name">
+							<Route path="/meals">
+								<Route index element={<Ingredients></Ingredients>} />
+								<Route path="/meals/ingredients/:ingredients">
+									<Route index element={<MealsByIngs></MealsByIngs>} />
+								</Route>
+								<Route path="/meals/:id/:name">
 									<Route index element={<Meal></Meal>} />
 								</Route>
 							</Route>
 							<Route path="/my-page">
+								<Route index element={<MyPage></MyPage>} />
+							</Route>
+							<Route path="/my-personal-info">
 								<Route index element={<MyPage></MyPage>} />
 							</Route>
 							<Route path="*">

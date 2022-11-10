@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/system/Box';
 import Container from '@mui/material/Container';

@@ -47,7 +47,7 @@ function Category() {
 									className={styles.card}
 									onClick={() => openLink(strCategory)}
 								>
-									<CardContent className={styles}>
+									<CardContent>
 										<Typography variant="h5" className={styles.title}>
 											{strCategory}
 										</Typography>

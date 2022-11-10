@@ -17,7 +17,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import CardMedia from '@mui/material/CardMedia';
 
 import styles from './styles.module.css';
-import { getMealById } from '../../store/action/dataAction';
+import { getMealById, getARandomMeal } from '../../store/action/dataAction';
 import { modifiedmealObj } from '../../utils';
 
 function Meal() {
@@ -31,7 +31,11 @@ function Meal() {
 	let modifiedMeal = null;
 
 	React.useEffect(() => {
-		dispatch(getMealById(id));
+		if (id == 'random') {
+			dispatch(getARandomMeal());
+		} else {
+			dispatch(getMealById(id));
+		}
 	}, [id]);
 
 	React.useEffect(() => {

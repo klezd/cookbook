@@ -42,11 +42,11 @@ function MealCard(props) {
 	};
 
 	const openMealDescription = () => {
-		navigate(`/meals/${idMeal}/${strMeal}`);
+		navigate(`/meals/${idMeal}`);
 	};
 
 	return (
-		<Card sx={{ padding: 2, maxWidth: 360 }} className={styles.root}>
+		<Card className={styles.root}>
 			<CardMedia
 				className={styles.thumbnail}
 				component="img"

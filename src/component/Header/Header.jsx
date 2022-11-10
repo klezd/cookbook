@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/system/Box';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import PersonIcon from '@mui/icons-material/Person';
 import MenuIcon from '@mui/icons-material/Menu';
 

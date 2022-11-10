@@ -84,7 +84,7 @@ function App() {
 								<Route path="/meals/ingredients/:ingredients">
 									<Route index element={<MealsByIngs></MealsByIngs>} />
 								</Route>
-								<Route path="/meals/:id/:name">
+								<Route path="/meals/:id">
 									<Route index element={<Meal></Meal>} />
 								</Route>
 							</Route>

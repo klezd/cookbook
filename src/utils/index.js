@@ -74,3 +74,7 @@ export const modifiedmealObj = (mealItem) => {
 	};
 	return res;
 };
+
+export const getArrayOfValuesByKey = (arr, key) => {
+	return arr.map((i) => i[key]);
+};

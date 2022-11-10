@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -7,45 +7,83 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import TextField from '@mui/material/TextField';
 
 import styles from './styles.module.css';
 import { getAllIngredients } from '../../store/action/dataAction';
-import { List, ListItem, ListItemText } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Area() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const loading = useSelector((s) => s.data.dataLoading);
-	const ingReducer = useSelector((s) => s.data.ingredients);
-	const ingList = ingReducer.meals;
+	const ingList = useSelector((s) => s.data.ingNameList);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		dispatch(getAllIngredients());
 	}, []);
 
+	useEffect(() => {
+		setList(ingList);
+	}, [ingList]);
+
 	const openLink = (ing) => {
 		navigate('/meals/ingredients/' + ing);
+	};
+	const [list, setList] = useState(ingList);
+	const [searchVal, setValue] = useState('');
+
+	const handleChange = (e) => {
+		const val = e.target.value;
+		console.log(val);
+		setValue(val);
+	};
+
+	const onSearch = () => {
+		if (searchVal.length === 0) {
+			setList(ingList);
+		} else {
+			setList(
+				ingList.filter((i) => i.toUpperCase().includes(searchVal.toUpperCase()))
+			);
+		}
 	};
 
 	return (
 		<Paper sx={{ boxShadow: 0 }}>
 			<Typography variant="h5">All Ingredients</Typography>
-			{!loading && ingList ? (
+			<Box>
+				<Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+					<FontAwesomeIcon icon="search" size="lg" style={{ margin: 6 }} />
+					<TextField
+						id="input-search-ingredients"
+						label="Search A Ingredient"
+						variant="standard"
+						value={searchVal}
+						onChange={handleChange}
+						onBlur={onSearch}
+						onKeyPress={(event) => {
+							if (event.key === 'Enter') {
+								onSearch();
+							}
+						}}
+					/>
+				</Box>
+			</Box>
+			{!loading && list ? (
 				<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>
-					{ingList.length !== 0 &&
-						ingList.map((m, i) => {
-							const { strIngredient } = m;
+					{list.length !== 0 &&
+						list.map((m, i) => {
 							return (
 								<Card
 									key={`cuisine_${i}`}
 									className={styles.card}
-									onClick={() => openLink(strIngredient)}
+									onClick={() => openLink(m)}
 								>
 									<CardContent className={styles.content}>
 										<Typography variant="body1" className={styles.title}>
-											{strIngredient}
+											{m}
 										</Typography>
 									</CardContent>
 								</Card>

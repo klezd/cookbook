@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  padding: 16px;
+  /* max-width: 360px; */
 }
 
 .root:hover {

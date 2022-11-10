@@ -7,11 +7,10 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+
+import { getAllAreas } from '../../store/action/dataAction';
 
 import styles from './styles.module.css';
-import { getAllAreas } from '../../store/action/dataAction';
-import { List, ListItem, ListItemText } from '@mui/material';
 
 function Area() {
 	const dispatch = useDispatch();
@@ -30,7 +29,7 @@ function Area() {
 	};
 
 	return (
-		<Paper className={styles.root} sx={{ boxShadow: 0 }}>
+		<Paper sx={{ boxShadow: 0 }}>
 			<Typography variant="h5">Cuisine from all of the world</Typography>
 			{!loading && areasList ? (
 				<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>

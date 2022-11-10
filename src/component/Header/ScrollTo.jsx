@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Zoom from '@mui/material/Zoom';
 
 export default function ScrollTo(props) {
-	const { children, window, idTo, autoShown, setPos } = props;
+	const { children, window, idTo, autoShown, pos } = props;
 
 	const trigger = useScrollTrigger({
 		target: window ? window() : undefined,
@@ -33,7 +33,11 @@ export default function ScrollTo(props) {
 			<Box
 				onClick={handleClick}
 				role="presentation"
-				sx={setPos ? { position: 'fixed', bottom: 16, right: 16 } : {}}
+				sx={
+					Object.keys(pos).length === 0
+						? { position: 'fixed', bottom: 16, right: 16 }
+						: pos
+				}
 			>
 				{children}
 			</Box>
@@ -46,10 +50,10 @@ ScrollTo.propTypes = {
 	window: PropTypes.func,
 	idTo: PropTypes.string,
 	autoShown: PropTypes.bool,
-	setPos: PropTypes.bool
+	pos: PropTypes.object
 };
 
 ScrollTo.defaultProps = {
 	autoShown: false,
-	setPos: true
+	pos: {}
 };

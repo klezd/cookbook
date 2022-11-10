@@ -1,3 +1,4 @@
+import { getArrayOfValuesByKey } from '../../utils';
 import {
 	GET_A_RANDOM_MEAL,
 	GET_CATEGORIES,
@@ -17,6 +18,7 @@ const initialState = {
 	categories: [],
 	areas: [],
 	ingredients: [],
+	ingNameList: [],
 	singleMeal: null,
 	meals: {},
 	mealsByQuery: {}
@@ -70,14 +72,17 @@ function userReducer(state = initialState, action) {
 				errorCode: null,
 				errorMsg: null
 			};
-		case `${GET_INGREDIENTS}_SUCCESS`:
+		case `${GET_INGREDIENTS}_SUCCESS`: {
+			let ings = payload.data.meals;
 			return {
 				...state,
 				dataLoading: false,
-				ingredients: payload.data,
+				ingredients: ings,
+				ingNameList: getArrayOfValuesByKey(ings, 'strIngredient'),
 				errorCode: null,
 				errorMsg: null
 			};
+		}
 		case `${GET_MEALS_BY_CATEGORY}_SUCCESS`:
 		case `${GET_MEALS_BY_AREA}_SUCCESS`:
 		case `${GET_LATEST_LIST}_SUCCESS`:

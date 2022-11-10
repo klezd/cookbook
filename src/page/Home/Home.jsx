@@ -21,9 +21,7 @@ function Home(props) {
 	const navigate = useNavigate();
 	const mealReducer = useSelector((s) => s.data.meals);
 	const mealsRandomList = mealReducer['random'] ? mealReducer['random'] : [];
-	const mealsLatestList = mealReducer['LATEST']
-		? mealReducer['LATEST'].meals
-		: [];
+	const mealsLatestList = mealReducer['LATEST'] ? mealReducer['LATEST'] : [];
 
 	useEffect(() => {
 		dispatch(initLoadHomepage());

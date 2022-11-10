@@ -15,7 +15,7 @@ function MealsByArea() {
 	const loading = useSelector((s) => s.data.dataLoading);
 	const mealReducer = useSelector((s) => s.data.meals);
 	const mealsList = mealReducer[area.toUpperCase()]
-		? mealReducer[area.toUpperCase()].meals
+		? mealReducer[area.toUpperCase()]
 		: [];
 
 	useEffect(() => {

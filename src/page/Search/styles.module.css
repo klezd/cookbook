@@ -1,4 +1,10 @@
-.root {
-	box-shadow: none !important;
+.pageTitle {
+	margin: 12px 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.searchBtn {
+	margin: 12px 0 !important;
 }
 

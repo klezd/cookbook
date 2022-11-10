@@ -53,23 +53,29 @@ function Area() {
 	return (
 		<Paper sx={{ boxShadow: 0 }}>
 			<Typography variant="h5">All Ingredients</Typography>
-			<Box>
-				<Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-					<FontAwesomeIcon icon="search" size="lg" style={{ margin: 6 }} />
-					<TextField
-						id="input-search-ingredients"
-						label="Search A Ingredient"
-						variant="standard"
-						value={searchVal}
-						onChange={handleChange}
-						onBlur={onSearch}
-						onKeyPress={(event) => {
-							if (event.key === 'Enter') {
-								onSearch();
-							}
-						}}
-					/>
-				</Box>
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'flex-end',
+					width: '100%'
+				}}
+			>
+				<FontAwesomeIcon icon="search" size="lg" style={{ margin: 6 }} />
+				<TextField
+					id="input-search-ingredients"
+					label="Search A Ingredient"
+					variant="standard"
+					fullWidth
+					value={searchVal}
+					onChange={handleChange}
+					onBlur={onSearch}
+					onKeyPress={(event) => {
+						if (event.key === 'Enter') {
+							onSearch();
+						}
+					}}
+				/>
 			</Box>
 			{!loading && list ? (
 				<Box sx={{ boxShadow: 0 }} className={styles.cardsRoot}>

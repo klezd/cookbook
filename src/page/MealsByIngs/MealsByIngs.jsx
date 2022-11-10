@@ -15,10 +15,9 @@ function MealsByIngs() {
 	const loading = useSelector((s) => s.data.dataLoading);
 	const mealReducer = useSelector((s) => s.data.mealsByQuery);
 	const mealsList = mealReducer[ingredients.toUpperCase()]
-		? mealReducer[ingredients.toUpperCase()].meals
+		? mealReducer[ingredients.toUpperCase()]
 		: [];
 
-	console.log(mealReducer);
 	useEffect(() => {
 		dispatch(searchMealByIngredient(ingredients));
 	}, [ingredients]);

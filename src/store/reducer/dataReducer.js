@@ -10,7 +10,8 @@ import {
 	SEARCH_MEAL_BY_NAME,
 	GET_LATEST_LIST,
 	GET_AREAS,
-	GET_INGREDIENTS
+	GET_INGREDIENTS,
+	RESET_SEARCH
 } from '../types';
 
 const initialState = {
@@ -91,7 +92,7 @@ function userReducer(state = initialState, action) {
 				dataLoading: false,
 				meals: {
 					...state.meals,
-					[payload.query.toUpperCase()]: payload.data
+					[payload.query.toUpperCase()]: payload.data.meals
 				},
 				errorCode: null,
 				errorMsg: null
@@ -114,10 +115,18 @@ function userReducer(state = initialState, action) {
 				dataLoading: false,
 				mealsByQuery: {
 					...state.meals,
-					[payload.query.toUpperCase()]: payload.data
+					[payload.query.toUpperCase()]: payload.data.meals
 				},
 				errorCode: null,
 				errorMsg: null
+			};
+		case RESET_SEARCH:
+			return {
+				...state,
+				mealsByQuery: {
+					...state.meals,
+					['search']: []
+				}
 			};
 
 		case `${GET_RANDOM_LIST}_ERROR`:

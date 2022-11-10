@@ -11,7 +11,7 @@ import MealCard from '../MealCard/MealCard';
 import styles from './styles.module.css';
 
 function List(props) {
-	const { title, mealList, loading } = props;
+	const { title, mealList, loading, displayIfNull, textIfNull } = props;
 
 	const [listData, setData] = useState([]);
 
@@ -19,8 +19,21 @@ function List(props) {
 		setData(mealList);
 	}, [mealList]);
 
-	if (loading || !listData || listData.length === 0) {
+	if ((loading || !listData || listData.length === 0) && !displayIfNull) {
 		return <Box>Loading</Box>;
+	}
+
+	if (displayIfNull && (!listData || listData.length === 0)) {
+		return (
+			<Container className={styles.root}>
+				<Paper sx={{ boxShadow: 0 }}>
+					<Box className={styles.meals}>
+						<Typography variant="h5">{title}</Typography>
+						<Box sx={{ boxShadow: 0 }}>{textIfNull}</Box>
+					</Box>
+				</Paper>
+			</Container>
+		);
 	}
 
 	return (
@@ -43,13 +56,18 @@ function List(props) {
 List.propTypes = {
 	// getList: 'random' | 'category' | 'area' | 'ingredients' | 'name',
 	mealList: PropTypes.array.isRequired,
-	title: PropTypes.ReactElementLike || PropTypes.string,
-	loading: PropTypes.bool
+	title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	loading: PropTypes.bool,
+	// Two props below for search page, before and after search
+	displayIfNull: PropTypes.bool,
+	textIfNull: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
 };
 
 List.defaultProps = {
 	title: <> Don&apos;t know what to eat? Try these!</>,
-	loading: true
+	loading: true,
+	displayIfNull: false,
+	textIfNull: <></>
 };
 
 export default List;

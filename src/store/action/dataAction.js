@@ -10,7 +10,8 @@ import {
 	SEARCH_MEAL_BY_NAME,
 	GET_LATEST_LIST,
 	GET_AREAS,
-	GET_INGREDIENTS
+	GET_INGREDIENTS,
+	RESET_SEARCH
 } from '../types';
 import { reqHeader } from '../../utils/rapidAPI';
 
@@ -114,15 +115,21 @@ export const getAllIngredients = () => (dispatch) => {
 	dispatch(callAPI(options, GET_INGREDIENTS));
 };
 
-export const searchMealByIngredient = (ingredient) => (dispatch) => {
-	const options = {
-		method: 'GET',
-		url: 'https://themealdb.p.rapidapi.com/filter.php',
-		params: { i: ingredient },
-		headers: reqHeader
+export const searchMealByIngredient =
+	(ingredient, search = false) =>
+	(dispatch) => {
+		// Reset the search opt
+		dispatch({ type: RESET_SEARCH });
+		const options = {
+			method: 'GET',
+			url: 'https://themealdb.p.rapidapi.com/filter.php',
+			params: { i: ingredient },
+			headers: reqHeader
+		};
+		// if query contains ',' then this search is with multiple ingredient
+		const query = ingredient.includes(',') || search ? 'search' : ingredient;
+		dispatch(callAPI(options, SEARCH_MEAL_BY_INGRDIENT, { query }));
 	};
-	dispatch(callAPI(options, SEARCH_MEAL_BY_INGRDIENT, { query: ingredient }));
-};
 
 export const searchMealByName = (query) => (dispatch) => {
 	const options = {
@@ -131,7 +138,7 @@ export const searchMealByName = (query) => (dispatch) => {
 		params: { s: query },
 		headers: reqHeader
 	};
-	dispatch(callAPI(options, SEARCH_MEAL_BY_NAME, { query }));
+	dispatch(callAPI(options, SEARCH_MEAL_BY_NAME, { query: 'search' }));
 };
 
 export const getRandomList = () => (dispatch) => {
